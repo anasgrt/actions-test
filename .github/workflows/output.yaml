@@ -1,6 +1,6 @@
 name: Show Github Actions Outputs
 
-on: [push, pull_request, workflow_dispatch]
+on: [workflow_dispatch]
 
 jobs:
   info:
