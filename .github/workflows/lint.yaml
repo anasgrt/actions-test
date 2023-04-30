@@ -18,6 +18,7 @@ jobs:
     - name: Run Linter
       run: |
         npm install eslint-plugin-react@latest
+        npm init @eslint/config
         npx eslint .
 
   test:
