@@ -1,4 +1,4 @@
-name: Issues Outputs
+name: Handle Issues
 
 on: [issues]
 
