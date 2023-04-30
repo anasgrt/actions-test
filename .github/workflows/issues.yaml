@@ -1,6 +1,9 @@
 name: Handle Issues
 
-on: issues
+on:
+  issues:
+    types: [opened]
+
 
 jobs:
   info:
