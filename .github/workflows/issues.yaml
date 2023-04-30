@@ -5,7 +5,7 @@ on:
     types: [opened]
 
 jobs:
-  info:
+  output-info:
     runs-on: ubuntu-latest
 
     steps:
