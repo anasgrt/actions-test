@@ -27,7 +27,7 @@ jobs:
 
     - name: Run Linter
       run: |
-        npx eslint .
+        npm run lint
 
   test:
     runs-on: ubuntu-latest
