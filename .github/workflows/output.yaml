@@ -1,0 +1,9 @@
+name: Show Github Actions Outputs
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  show:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Output Github Actions Outputs
+      run: |
+        echo "${{ toJSON(github) }}"
