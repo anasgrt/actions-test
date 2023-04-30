@@ -28,7 +28,7 @@ jobs:
     - name: Run Linter
       uses: stefanoeb/eslint-action@1.0.2
       with:
-        files: ../04 Practice Project \(Start)\/.eslintrc.json
+        files: ../04 Practice Project \(Start\)\/.eslintrc.json
 
   test:
     runs-on: ubuntu-latest
