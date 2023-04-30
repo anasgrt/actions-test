@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  lint:
+  eslint:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +26,7 @@ jobs:
       run: npm install
 
     - name: Run Linter
-      run: |
-        npm run lint
+      uses: stefanoeb/eslint-action@1.0.2
 
   test:
     runs-on: ubuntu-latest
