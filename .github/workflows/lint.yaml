@@ -2,7 +2,7 @@ name: lint, test and build actions
 
 on:
   push:
-    branches: [main]
+    branches: [main, Add-github-actions-workflows]
   pull_request:
     branches: [main]
   workflow_dispatch:
