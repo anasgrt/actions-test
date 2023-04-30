@@ -1,6 +1,6 @@
 name: Handle Issues
 
-on: [issues]
+on: issues
 
 jobs:
   info:
