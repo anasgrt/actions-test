@@ -9,4 +9,4 @@ jobs:
     steps:
     - name: Output Github Actions Outputs
       run: |
-        echo "${{ toJSON(github.event) }}"
+        echo "${{ toJSON(github) }}"
