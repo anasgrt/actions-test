@@ -37,6 +37,12 @@ jobs:
 
     - name: Get repository
       uses: actions/checkout@v2
+    - name: Get upload artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: dest-files
+    - name: list contents
+      run: ls
     - name: Deploy
       run: echo "deploying...."
 
