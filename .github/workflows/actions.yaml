@@ -1,8 +1,8 @@
-name: Github Actions
+name: lint, test and build actions
 
 on:
   push:
-    branches: [main]
+    branches: [main, Add-github-actions-workflows]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -11,37 +11,41 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Get Code
-      uses: actions/checkout@v3
 
-    - name: Setup Node
+    - name: Get repository
+      uses: actions/checkout@v3
+    - name: Install Node
       uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: '18'
+    - name: Install dependencies & run lint
+      run: |
+        npm ci
+        npm run lint
+    - name: upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dest-files
+        path: artifacts
 
-    - name: Install Dependancies
-      run: npm ci
-
-    - name: Run Tests
-      run: npm test
-
-  build:
+  deploy:
     needs: test
     runs-on: ubuntu-latest
-
     steps:
-    - name: Get Code
+
+    - name: Get repository
       uses: actions/checkout@v3
-
-    - name: Setup Node
-      uses: actions/setup-node@v3
+    - name: Get Build Artifact
+      uses: actions/download-artifact@v3
       with:
-        node-version: 18
+        name: dest-files
+    - name: list contents
+      run: ls
+    - name: Deploy
+      run: echo "deploying...."
 
-    - name: Install Dependancies
-      run: npm ci
 
-    - name: Build the app
-      run: npm run build
+
+
+
