@@ -14,7 +14,7 @@ jobs:
     steps:
 
     - name: Get repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Install Node
       uses: actions/setup-node@v3
       with:
@@ -35,9 +35,9 @@ jobs:
     steps:
 
     - name: Get repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Get Build Artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: dest-files
     - name: list contents
