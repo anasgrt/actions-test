@@ -2,7 +2,7 @@ name: lint, test and build actions
 
 on:
   push:
-    branches: [main, Add-github-actions-workflows]
+    branches: [main, add_cache_outputs_to_jobs]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -19,6 +19,16 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '18'
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
     - name: Install dependencies & run lint
       run: |
         npm ci
@@ -43,7 +53,7 @@ jobs:
     - name: list contents
       run: ls
     - name: Deploy
-      run: echo "deploying...."
+      run: echo "deploying..."
 
 
 
