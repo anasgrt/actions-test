@@ -56,6 +56,8 @@ jobs:
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
       run: npm ci
+    - name: Build code
+      run: npm run build
     - name: Publish JS filename
       id: publish
       run: find artifacts/*.txt -type f -execdir echo 'output01={}' >> $GITHUB_OUTPUT ';'
