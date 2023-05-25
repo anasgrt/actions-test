@@ -58,7 +58,7 @@ jobs:
       run: npm ci
     - name: Publish JS filename
       id: publish
-      run: find dist/assets/*.js -type f -execdir echo 'output01={}' >> $GITHUB_OUTPUT ';'
+      run: find artifacts/*.txt -type f -execdir echo 'output01={}' >> $GITHUB_OUTPUT ';'
     - name: upload artifact
       uses: actions/upload-artifact@v3
       with:
