@@ -19,7 +19,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-    - name: Cache node modules
+    - name: Cache dependencies
       id: cache-npm
       uses: actions/cache@v3
       env:
@@ -28,11 +28,37 @@ jobs:
         # npm cache files are stored in `~/.npm` on Linux/macOS
         path: ~/.npm
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    - name: Install dependencies
+      run: npm ci
+    - name: Lint code
+      run: npm run lint
+    - name: Test code
+      run: npm run test
 
-    - name: Install dependencies & run lint
-      run: |
-        npm ci
-        npm run lint
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.publish.outputs.output01 }}
+    steps:
+
+    - name: Get repository
+      uses: actions/checkout@v3
+    - name: Cache dependencies
+      id: cache-npm
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    - name: Install dependencies
+      run: npm ci
+    - name: Publish JS filename
+      id: publish
+      run: find dist/assets/*.js -type f -execdir echo 'output01={}' >> $GITHUB_OUTPUT ';'
     - name: upload artifact
       uses: actions/upload-artifact@v3
       with:
@@ -40,7 +66,7 @@ jobs:
         path: artifacts
 
   deploy:
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     steps:
 
@@ -52,6 +78,8 @@ jobs:
         name: dest-files
     - name: list contents
       run: ls
+    - name: Output filename
+      run: echo "${{ needs.build.outputs.script-file }}"
     - name: Deploy
       run: echo "deploying..."
 
