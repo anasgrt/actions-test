@@ -53,7 +53,7 @@ jobs:
     - name: list contents
       run: ls
     - name: Deploy
-      run: echo "deploying...."
+      run: echo "deploying..."
 
 
 
