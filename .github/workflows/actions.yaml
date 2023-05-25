@@ -78,8 +78,6 @@ jobs:
         name: dest-files
     - name: list contents
       run: ls
-    - name: Output filename
-      run: echo "${{ needs.build.outputs.script-file }}"
     - name: Deploy
       run: echo "deploying..."
 
